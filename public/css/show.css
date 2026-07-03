@@ -1,0 +1,24 @@
+/* show  */
+.sh-img{
+    height: 50vh;
+    border-radius: 2rem;
+}
+.btn:hover{
+    background-color: rgba(0, 132, 255, 0.679);
+}
+.btn2{
+    background-color: black !important;
+    padding: 0 !important;
+}
+.btn{
+    color: white !important;
+}
+.btn-sh{
+    margin : 20px;
+    width: 10rem;
+}
+.review{
+    margin: 100px 0 20px 0;
+    width: 100% !important;
+    /* background-color: aqua; */
+}

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top shadow-sm">
+  <div class="container-fluid px-3 px-md-4">
+
+    <a class="ic-compass me-3" href="/">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <button class="navbar-toggler ms-auto" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <!-- Left side -->
+      <div class="navbar-nav">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/listings">All Listings</a>
+        <a class="nav-link" href="/listings/newData">Add New Listing</a>
+      </div>
+
+      <!-- Right side -->
+      <div class="navbar-nav ms-auto">
+        <% if(!currUser){ %>
+          <a href="/signup" class="nav-link"><i class="fa-solid fa-circle-plus">&nbsp;&nbsp;&nbsp;&nbsp;</i>Sign Up</a>
+          <a href="/login" class="nav-link">
+            <i class="fa-solid fa-door-open">&nbsp;&nbsp;</i>Login</a>
+        <% } else { %>
+          <a href="/logout" class="nav-link"><i class="fa-solid fa-arrow-right-to-bracket">&nbsp;&nbsp;</i>Logout</a>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</nav>
