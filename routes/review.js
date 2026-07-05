@@ -30,11 +30,12 @@ router.delete("/:reviewid" , isLoggedin, wrapAsync(async(req,res)=>{
     res.redirect(`/listings/${id}`);
 }));
 // reviews 
-router.post("/", validReview,isLoggedin, wrapAsync(async (req, res) => {
+router.post("/",isLoggedin, validReview, wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReviews = new Review(req.body.reviews);
-
-    listing.reviews.push(newReviews);
+    newReviews.reviewOwner = req.user._id.toString();
+    console.log(newReviews);
+    listing.reviews.push(newReviews._id);
 
     await newReviews.save();
     await listing.save();
