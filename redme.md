@@ -29,3 +29,11 @@ Passport : Passport is Express-compatible authentication middleware for Node.js.
 
 
 user Model --- 
+
+MVC - model view controller
+model -  to store a models
+view - put files that we want to render
+Controllers - add backend core functionality
+
+router.route 
+: to add a same request at same place!!

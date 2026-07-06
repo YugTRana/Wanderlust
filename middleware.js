@@ -1,4 +1,29 @@
 let Listing  = require("./model/listing.js");
+let {listingSchema , reviewSchema} = require("./schema.js");
+const ExpressError = require("./utils/ExpressError.js");
+
+// for listing Backend Validation
+module.exports.validListing = (req, res, next) => {
+    let { error } = listingSchema.validate(req.body);
+    if (error) {
+        let errMsg = error.details.map((el) => el.message).join(" , ");
+        throw new ExpressError(400, errMsg);
+    } else {
+        next();
+    }
+};
+// for Review Backend Validation!!
+module.exports.validReview = (req, res, next) => {
+    let { error } = reviewSchema.validate(req.body);
+    if (error) {
+        let errMsg = error.details.map((el) => el.message).join(" , ");
+        throw new ExpressError(400, errMsg);
+    } else {
+        next();
+    }
+}
+
+
 module.exports.isLoggedin = (req,res,next)=>{
    // console.log(`${req.originalUrl} and  ${req.path}`);
      if(!req.isAuthenticated()){
@@ -32,3 +57,4 @@ module.exports.isOwner = async(req,res,next)=>{
        }
        next();
 }
+

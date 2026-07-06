@@ -31,6 +31,7 @@ const listingSchema = new Schema({
 });
 // these is post middleware these call automatically after findByIdAndDelete Call
 listingSchema.post("findOneAndDelete", async(listing)=>{
+    // console.log(listing);
     if(listing){
         let res = await Review.deleteMany({_id : {$in : listing.reviews}});
         console.log(res);

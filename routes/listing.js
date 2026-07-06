@@ -5,79 +5,30 @@ const Review = require("../model/reviews.js");
 const wrapAsync = require("../utils/wrapAsync.js").default;
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
-const { isLoggedin, isOwner } = require("../middleware.js");
+const { isLoggedin, isOwner , validListing } = require("../middleware.js");
+const listingController = require("../controller/listings.js");
 
-const validListing = (req, res, next) => {
-    let { error } = listingSchema.validate(req.body);
-    if (error) {
-        let errMsg = error.details.map((el) => el.message).join(" , ");
-        throw new ExpressError(400, errMsg);
-    } else {
-        next();
-    }
-};
 // show all listing
-router.get("/", async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings });
-});
+router.get("/", listingController.index);
 
-router.get("/newData", isLoggedin, (req, res) => {
-    res.render("listings/add.ejs");
-});
+// render Add Data!!
+router.get("/newData", isLoggedin, listingController.renderAddData);
+
 // create route
 // here wrapAsync handle a error
-router.post("/", validListing, isLoggedin, wrapAsync(async (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    console.log(result);
-    const newListing = new Listing(req.body.listing);
-    console.log(req);  // these is bydefault save by passport means all data are store in passprt
-    newListing.owner = req.user._id;
-    await newListing.save();
-    req.flash("msg", "New Listing Created!!");  //  when new data create then flash
-    res.redirect("/listings");
-}));
+router.post("/",isLoggedin,validListing,listingController.AddDataInDb);
 
 // show route
-router.get("/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id).populate({
-        path: "reviews",
-        populate: {
-            path: "reviewOwner"
-        }
-    }).populate("owner");
-    //  console.log(listing);
-
-    if (!listing) {
-        req.flash("error", "ERROR!! NOT FOUND!!");
-        throw new ExpressError(404, "Listing not found");
-    }
-    res.render("listings/show.ejs", { listing });
-}));
+router.get("/:id",listingController.showParticular);
 
 // delete
-router.delete("/:id", isLoggedin,isOwner, async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndDelete(id);
+// deleting of review sin hels in routes that is post method then call after findByIdAndDelete
+router.delete("/:id", isLoggedin,isOwner,listingController.deleteListing);
 
-    req.flash("msg", "Listing Deleted!!");
-    res.redirect("/listings");
-});
 //edit
-router.get("/:id/edit", isLoggedin,isOwner, async (req, res) => {
-
-    let { id } = req.params;
-    const listing = await Listing.findById(id);
-
-    res.render("listings/edit.ejs", { listing });
-});
+router.get("/:id/edit", isLoggedin,isOwner,listingController.renderEditForm);
 // update
-router.put("/:id", isLoggedin,isOwner, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+router.put("/:id", isLoggedin,isOwner, listingController.updateData);
 
-    req.flash("msg", "Listing Updated!!");
-    res.redirect(`/listings/${id}`);
-}));
+// export routes
 module.exports = router;
