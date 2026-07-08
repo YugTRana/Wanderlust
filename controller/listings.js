@@ -2,6 +2,8 @@ const Listing = require("../model/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js").default;
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
+const maptiler = require("@maptiler/client");
+maptiler.config.apiKey = process.env.DEFAULT_KEY;
 
 // first page (All Listings!!)
 module.exports.index = async (req, res) => {
@@ -15,7 +17,7 @@ module.exports.renderAddData = (req, res) => {
 };
 
 // create data
-module.exports.AddDataInDb =  wrapAsync(async (req, res, next) => {
+module.exports.AddDataInDb = wrapAsync(async (req, res, next) => {
     let url = req.file.path;
     let filename = req.file.filename;
 
@@ -23,17 +25,25 @@ module.exports.AddDataInDb =  wrapAsync(async (req, res, next) => {
 
     let result = listingSchema.validate(req.body);
     const newListing = new Listing(req.body.listing);
+
+    const response = await maptiler.geocoding.forward(
+        newListing.location,
+        { limit: 1 }
+    );
+    console.log(response.features[0].geometry.coordinates);
+
     // console.log(req);  // these is by default save by passport means all data are store in passprt
     newListing.owner = req.user._id;
-    newListing.image = {url,filename};
-    
+    newListing.image = { url, filename };
+    newListing.geometry = response.features[0].geometry;
+
     await newListing.save();
     req.flash("msg", "New Listing Created!!");  //  when new data create then flash
     res.redirect("/listings");
 });
 
 //show Particular Listing
-module.exports.showParticular =  wrapAsync(async (req, res) => {
+module.exports.showParticular = wrapAsync(async (req, res) => {
     let { id } = req.params;
     // these is known as nesting og populate
     let listing = await Listing.findById(id).populate({
@@ -50,7 +60,7 @@ module.exports.showParticular =  wrapAsync(async (req, res) => {
 });
 
 // Delete Listing and review's delete in Post methos of Lisiting!! 
-module.exports.deleteListing =  async (req, res) => {
+module.exports.deleteListing = async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
 
@@ -59,7 +69,7 @@ module.exports.deleteListing =  async (req, res) => {
 };
 
 // render Edit form!!
-module.exports.renderEditForm =  async (req, res) => {
+module.exports.renderEditForm = async (req, res) => {
 
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -70,14 +80,27 @@ module.exports.renderEditForm =  async (req, res) => {
 // update final!!
 module.exports.updateData = wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing } , {new : true});
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true });
+
+    // Update normal fields
+    Object.assign(listing, req.body.listing);
+
+    // Update geometry if location changed
+    const response = await maptiler.geocoding.forward(
+        listing.location,
+        { limit: 1 }
+    );
+
+    if (response.features.length > 0) {
+        listing.geometry = response.features[0].geometry;
+    }
     if (req.file) {
         let url = req.file.path;
         let filename = req.file.filename;
 
         listing.image = { url, filename };
-        await listing.save();
     }
+     await listing.save();
 
 
     req.flash("msg", "Listing Updated!!");

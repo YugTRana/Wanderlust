@@ -11,6 +11,7 @@ const listingController = require("../controller/listings.js");
 const {storage} = require("../cloudconfig.js");
 const multer = require("multer");
 const upload = multer({storage}); // these line say that file is save at uploads
+const maptiler = require("@maptiler/client");
 
 // show all listing
 router.get("/", listingController.index);

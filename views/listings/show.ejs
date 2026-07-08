@@ -1,7 +1,8 @@
 <% layout("/layouts/boilerplate") %>
 
 <script>
-    let key = "<%= process.env.DEFAULT_KEY %>"
+    let key = "<%= process.env.DEFAULT_KEY %>";
+    let cordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
 </script>
     <!-- <h1>WanderLust!!</h1> -->
     <div class="row col-12">

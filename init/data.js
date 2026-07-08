@@ -10,6 +10,10 @@ const sampleListings = [
     location: "Jaisalmer",
     country: "India",
     category: "trending",
+    geometry: {
+      type: "Point",
+      coordinates: [70.9083, 26.9157],
+    }
   },
 
   {
@@ -23,6 +27,10 @@ const sampleListings = [
     location: "Alleppey",
     country: "India",
     category: "rooms",
+    geometry: {
+      type: "Point",
+      coordinates: [76.3388, 9.4981],
+    }
   },
 
   {
@@ -36,6 +44,10 @@ const sampleListings = [
     location: "Maldives",
     country: "Maldives",
     category: "swimmingpool",
+    geometry: {
+      type: "Point",
+      coordinates: [73.5093, 4.1755],
+    }
   },
 
   {
@@ -49,6 +61,10 @@ const sampleListings = [
     location: "Manali",
     country: "India",
     category: "mountaines",
+    geometry: {
+      type: "Point",
+      coordinates: [77.1892, 32.2396],
+    }
   },
 
   {
@@ -62,6 +78,10 @@ const sampleListings = [
     location: "Kyoto",
     country: "Japan",
     category: "rooms",
+    geometry: {
+      type: "Point",
+      coordinates: [135.7681, 35.0116],
+    }
   },
 
   {
@@ -75,6 +95,10 @@ const sampleListings = [
     location: "Nainital",
     country: "India",
     category: "trending",
+    geometry: {
+      type: "Point",
+      coordinates: [79.4636, 29.3919],
+    }
   },
 
   {
@@ -88,6 +112,10 @@ const sampleListings = [
     location: "Punjab",
     country: "India",
     category: "rooms",
+    geometry: {
+      type: "Point",
+      coordinates: [76.7794, 30.7333],
+    }
   },
 
   {
@@ -101,6 +129,10 @@ const sampleListings = [
     location: "Bali",
     country: "Indonesia",
     category: "swimmingpool",
+    geometry: {
+      type: "Point",
+      coordinates: [115.2167, -8.65],
+    }
   },
 
   {
@@ -114,6 +146,10 @@ const sampleListings = [
     location: "Paris",
     country: "France",
     category: "rooms",
+    geometry: {
+      type: "Point",
+      coordinates: [2.3522, 48.8566],
+    }
   },
 
   {
@@ -127,6 +163,10 @@ const sampleListings = [
     location: "Amazon",
     country: "Brazil",
     category: "trending",
+    geometry: {
+      type: "Point",
+      coordinates: [-60.0217, -3.119],
+    }
   },
 
   {
@@ -140,6 +180,10 @@ const sampleListings = [
     location: "Udaipur",
     country: "India",
     category: "trending",
+    geometry: {
+      type: "Point",
+      coordinates: [73.7125, 24.5854],
+    }
   },
 
   {
@@ -153,6 +197,10 @@ const sampleListings = [
     location: "Leh",
     country: "India",
     category: "mountaines",
+    geometry: {
+      type: "Point",
+      coordinates: [77.577, 34.1526],
+    }
   },
 
   {
@@ -166,6 +214,10 @@ const sampleListings = [
     location: "Dubai",
     country: "United Arab Emirates",
     category: "rooms",
+    geometry: {
+      type: "Point",
+      coordinates: [55.2708, 25.2048],
+    }
   },
 
   {
@@ -179,6 +231,10 @@ const sampleListings = [
     location: "Santorini",
     country: "Greece",
     category: "swimmingpool",
+    geometry: {
+      type: "Point",
+      coordinates: [25.7294, 66.5039],
+    }
   },
 
   {
@@ -192,6 +248,10 @@ const sampleListings = [
     location: "Lapland",
     country: "Finland",
     category: "mountaines",
+    geometry: {
+      type: "Point",
+      coordinates: [25.7482, 61.9241]
+    }
   },
 ];
 

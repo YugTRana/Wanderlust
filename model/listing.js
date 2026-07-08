@@ -6,37 +6,48 @@ const Review = require("./reviews.js");
 const User = require("./user.js");
 
 const listingSchema = new Schema({
-    title :{
-     type : String,
-     required : true 
+    title: {
+        type: String,
+        required: true
     },
-    description : String,   
-    image : {
-      url : String,
-      filename : String
+    description: String,
+    image: {
+        url: String,
+        filename: String
     },
-    price : Number,
-    location : String,
-    country : String,
-    reviews : [
+    price: Number,
+    location: String,
+    country: String,
+    reviews: [
         {
-        type : Schema.Types.ObjectId,
-        ref : "Reviews",
-    }],
-    owner : {
-        type : Schema.Types.ObjectId,
-        ref : "User",
+            type: Schema.Types.ObjectId,
+            ref: "Reviews",
+        }],
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
     },
-    category : {
-        type : String ,
-        enum : ["rooms","mountaines","swimmingpool","trending"]
+    category: {
+        type: String,
+        enum: ["rooms", "mountaines", "swimmingpool", "trending"]
+    },
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            required: true,
+        },
+        coordinates: {
+            type : [Number],
+            required : true
+        }
     }
 });
 // these is post middleware these call automatically after findByIdAndDelete Call
-listingSchema.post("findOneAndDelete", async(listing)=>{
+listingSchema.post("findOneAndDelete", async (listing) => {
     // console.log(listing);
-    if(listing){
-        let res = await Review.deleteMany({_id : {$in : listing.reviews}});
+    if (listing) {
+        let res = await Review.deleteMany({ _id: { $in: listing.reviews } });
         console.log(res);
     }
 });

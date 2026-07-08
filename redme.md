@@ -47,3 +47,5 @@ npm i multer-storage-cloudinary
 npm i cloudinary 
 
 there is two type of npm package that is basically made for Cloudinary!!
+
+Geocoding : is a process of converting address into geographic coordinates!!
