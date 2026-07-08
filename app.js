@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV != "production"){
+    // at time of deploy we don't want to add these so!!
+    require("dotenv").config();
+}
+// console.log(process.env.SECRET);
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -11,6 +16,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const filterRoute = require("./routes/filter.js");
 
 const flash = require("connect-flash");
 const session = require("express-session");
@@ -87,6 +93,7 @@ app.use((req,res,next)=>{
 
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
+app.use("/filter",filterRoute);
 app.use("/",userRouter);
 
 app.use((req, res, next) => {

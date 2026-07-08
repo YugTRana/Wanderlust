@@ -16,11 +16,17 @@ module.exports.renderAddData = (req, res) => {
 
 // create data
 module.exports.AddDataInDb =  wrapAsync(async (req, res, next) => {
+    let url = req.file.path;
+    let filename = req.file.filename;
+
+    // console.log(path+" ... "+filename);
+
     let result = listingSchema.validate(req.body);
-    // console.log(result);
     const newListing = new Listing(req.body.listing);
     // console.log(req);  // these is by default save by passport means all data are store in passprt
     newListing.owner = req.user._id;
+    newListing.image = {url,filename};
+    
     await newListing.save();
     req.flash("msg", "New Listing Created!!");  //  when new data create then flash
     res.redirect("/listings");
@@ -64,7 +70,15 @@ module.exports.renderEditForm =  async (req, res) => {
 // update final!!
 module.exports.updateData = wrapAsync(async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing } , {new : true});
+    if (req.file) {
+        let url = req.file.path;
+        let filename = req.file.filename;
+
+        listing.image = { url, filename };
+        await listing.save();
+    }
+
 
     req.flash("msg", "Listing Updated!!");
     res.redirect(`/listings/${id}`);

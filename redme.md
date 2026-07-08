@@ -37,3 +37,13 @@ Controllers - add backend core functionality
 
 router.route 
 : to add a same request at same place!!
+
+use multer for a  uploding image file!!
+
+use cloudinary for uploading a files
+
+dotenv : these is package that we use to work means to aceess the data of .env file
+npm i multer-storage-cloudinary
+npm i cloudinary 
+
+there is two type of npm package that is basically made for Cloudinary!!

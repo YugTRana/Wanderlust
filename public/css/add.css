@@ -12,3 +12,19 @@ form{
 h1{
     font-weight: 700;
 }
+.add{
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.cat-select{
+    height: 30px;
+    width: 130px;
+    border-radius: 10px;
+    margin-left: 10px;
+    /* border: none; */
+}
+.filter-a{
+    text-decoration: none;
+    color: black;
+}

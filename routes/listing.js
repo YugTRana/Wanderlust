@@ -8,6 +8,10 @@ const { listingSchema } = require("../schema.js");
 const { isLoggedin, isOwner , validListing } = require("../middleware.js");
 const listingController = require("../controller/listings.js");
 
+const {storage} = require("../cloudconfig.js");
+const multer = require("multer");
+const upload = multer({storage}); // these line say that file is save at uploads
+
 // show all listing
 router.get("/", listingController.index);
 
@@ -16,7 +20,8 @@ router.get("/newData", isLoggedin, listingController.renderAddData);
 
 // create route
 // here wrapAsync handle a error
-router.post("/",isLoggedin,validListing,listingController.AddDataInDb);
+router.post("/",isLoggedin,validListing,upload.single("listing[image]"),listingController.AddDataInDb);
+
 
 // show route
 router.get("/:id",listingController.showParticular);
@@ -28,7 +33,7 @@ router.delete("/:id", isLoggedin,isOwner,listingController.deleteListing);
 //edit
 router.get("/:id/edit", isLoggedin,isOwner,listingController.renderEditForm);
 // update
-router.put("/:id", isLoggedin,isOwner, listingController.updateData);
+router.put("/:id", isLoggedin,isOwner,upload.single("listing[image]"), validListing,listingController.updateData);
 
 // export routes
 module.exports = router;

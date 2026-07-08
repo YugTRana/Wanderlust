@@ -1,3 +1,7 @@
+.container{
+    margin: 10px !important;
+    padding: 0 !important   ;
+}
 .card{
     margin: 10px;
     height: 200px;
@@ -45,5 +49,11 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;    
+}
+.dis-reviews h4{
+    padding-left:30px;
+}
+.rev-last{
+   padding-left:40px !important;
 }

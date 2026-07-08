@@ -22,3 +22,15 @@
     width: 100% !important;
     /* background-color: aqua; */
 }
+.info-header{
+    display: flex;
+    justify-content: space-between;
+}
+.info-header p{
+    margin-right: 30px;
+}
+@media (max-width: 450px) {
+    .info-header{
+        flex-direction: column;
+    }
+}
