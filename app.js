@@ -23,9 +23,10 @@ const session = require("express-session");
 const passport = require("passport");
 const Localstrategy = require("passport-local").Strategy;
 const User = require("./model/user.js");
+const Listing = require("./model/listing.js");
 
 
-//  i have to see a error part second time that is in phase 1 part 3
+// i have to see a error part second time that is in phase 1 part 3
 main().then(() => {
     console.log("Connected to Db");
 }).catch(err => console.log(err));
@@ -79,17 +80,20 @@ app.use((req,res,next)=>{
     res.locals.currUser = req.user;
     next();
 });
+app.get("/search",async(req,res)=>{
 
-// app.get("/demouser",async(req,res)=>{
+    console.log(req.query);
+    let{value} = req.query;
+    console.log(value);
 
-//     let fakeUSer = new User({
-//         email : "xyz@gmailcom",
-//         username : "xyzStudent"
-//     });
-
-//    let regUser = await User.register(fakeUSer,"helloworld"); // here helloworls is password
-//    res.send(regUser);
-// })
+    let allListings = await Listing.find({title : value});
+    if(allListings.length > 0){
+       res.render("listings/index.ejs", { allListings });
+    }else{
+        req.flash("error","No Listing Found!!");
+        res.redirect("/listings");
+    }
+});
 
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);

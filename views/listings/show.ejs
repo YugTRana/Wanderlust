@@ -43,14 +43,14 @@
                     <div class="row">
                         <div class="col-12 col-md-5">
                             <p> <a href="/listings/<%= listing._id %>/edit" style="text-decoration: none;"
-                                    class="btn btn-primary w-100">Edit List</a></p>
+                                    class="btn btn-edit btn-primary w-100">Edit List</a></p>
                             </p>
                         </div>
                         <div class="col">
                             <div class="col-12 col-md-10">
                                 <form class="btn2" action="/listings/<%= listing._id %>?_method=DELETE" method="POST"
                                     onsubmit="confirmDelete(event)">
-                                    <button type="submit" class="btn w-100">Delete Listing</button>
+                                    <button type="submit" class="btn btn-del w-100">Delete Listing</button>
                                 </form>
                             </div>
                         </div>
@@ -137,7 +137,9 @@
                         <h3>Location</h3>
                         <div id="map"></div>
                     </div>
-                    <script src="/js/javascript.js"></script>
+                     <script src="/js/javascript.js"></script>
+                     <p style="color: red;">These location is for refrence!! Only These not seen you a Proper Place of Listing!!</p>
+                   
     </div>
     </div>
   

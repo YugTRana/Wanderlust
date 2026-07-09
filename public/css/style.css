@@ -117,4 +117,22 @@ body{
     #map{
         height: 300px;
     }
+    .search{
+        display: none !important;
+    }
+}
+.d-flex{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.btn-search{
+    border-radius: 30px !important;
+}
+.search{
+    background-color: white !important ;
+    box-shadow: none !important;
+}
+.search-in{
+    border-radius: 30px !important;
+    font-size: small !important;
 }
