@@ -26,8 +26,8 @@ WanderLust is a full-stack accommodation booking platform inspired by Airbnb. It
 ### Listing Details
 ![Listing Details](./screenshots/show.png)
 
-### Add Listing
-![Add Listing](./screenshots/add.png)
+### map Listing
+![Mao Listing](./screenshots/add.png)
 
 ---
 
@@ -142,23 +142,6 @@ Install Dependencies
 
 ```bash
 npm install
-```
-
-Create a `.env` file
-
-```env
-ATLASDB_URL=Your MongoDB Atlas URL
-
-SECRET=Your Session Secret
-
-CLOUD_NAME=Your Cloudinary Cloud Name
-CLOUD_API_KEY=Your Cloudinary API Key
-CLOUD_API_SECRET=Your Cloudinary API Secret
-
-MAP_TOKEN=Your MapTiler API Key
-
-EMAIL=Your Email
-EMAIL_PASS=Your Email Password
 ```
 
 Start Server
