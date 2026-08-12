@@ -30,7 +30,7 @@ router.get("/mountains",async(req,res)=>{
 });
 router.get("/swimming",async(req,res)=>{
     // swimmingpool
-     let allListings = await Listing.find({ category : "swimmingpool" });
+     let allListings = await Listing.find({ category : "swimming" });
     if(!allListings){
 
         return res.render("listings/noData.ejs");
