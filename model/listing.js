@@ -28,7 +28,7 @@ const listingSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ["rooms", "mountaines", "swimmingpool", "trending"]
+        enum: ["rooms", "mountaines", "swimming", "trending"]
     },
     geometry: {
         type: {
